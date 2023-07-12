@@ -203,7 +203,7 @@ void Menu::render() {
 
     ImGui::SetCursorPosX(posX);
 
-    if (ImGui::Button("Exit", ImVec2(buttonWidth, buttonHeight))) {}
+    if (ImGui::Button("Exit", ImVec2(buttonWidth, buttonHeight))) { getEngineInstance()->exit(); }
 
     ImGui::End();
 }

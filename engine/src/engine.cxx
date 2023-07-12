@@ -35,128 +35,128 @@ using namespace std::literals;
 namespace fs = std::filesystem;
 
 static const std::unordered_map<Event::Type, std::string_view> s_eventTypeToStringView{
-        {Event::Type::key_down,       "key_down"},
-        {Event::Type::key_up,         "key_up"},
-        {Event::Type::mouse_down,     "button_down"},
-        {Event::Type::mouse_up,       "button_up"},
-        {Event::Type::mouse_wheel,    "spin_wheel"},
-        {Event::Type::mouse_motion,   "mouse_motion"},
-        {Event::Type::touch_down,     "touch_down"},
-        {Event::Type::touch_up,       "touch_up"},
-        {Event::Type::touch_motion,   "touch_motion"},
-        {Event::Type::window_resized, "window_resized"},
-        {Event::Type::turn_off,       "turn_off"},
-        {Event::Type::not_event,      ""}
+    { Event::Type::key_down, "key_down" },
+    { Event::Type::key_up, "key_up" },
+    { Event::Type::mouse_down, "button_down" },
+    { Event::Type::mouse_up, "button_up" },
+    { Event::Type::mouse_wheel, "spin_wheel" },
+    { Event::Type::mouse_motion, "mouse_motion" },
+    { Event::Type::touch_down, "touch_down" },
+    { Event::Type::touch_up, "touch_up" },
+    { Event::Type::touch_motion, "touch_motion" },
+    { Event::Type::window_resized, "window_resized" },
+    { Event::Type::turn_off, "turn_off" },
+    { Event::Type::not_event, "" }
 };
 
 static const std::unordered_map<Event::Keyboard::Key, std::string_view> s_eventKeysToStringView{
-        {Event::Keyboard::Key::q,               "q_"},
-        {Event::Keyboard::Key::w,               "w_"},
-        {Event::Keyboard::Key::e,               "e_"},
-        {Event::Keyboard::Key::r,               "r_"},
-        {Event::Keyboard::Key::t,               "t_"},
-        {Event::Keyboard::Key::y,               "y_"},
-        {Event::Keyboard::Key::u,               "u_"},
-        {Event::Keyboard::Key::i,               "i_"},
-        {Event::Keyboard::Key::o,               "o_"},
-        {Event::Keyboard::Key::p,               "p_"},
-        {Event::Keyboard::Key::a,               "a_"},
-        {Event::Keyboard::Key::s,               "s_"},
-        {Event::Keyboard::Key::d,               "d_"},
-        {Event::Keyboard::Key::f,               "f_"},
-        {Event::Keyboard::Key::g,               "g_"},
-        {Event::Keyboard::Key::h,               "h_"},
-        {Event::Keyboard::Key::j,               "j_"},
-        {Event::Keyboard::Key::k,               "k_"},
-        {Event::Keyboard::Key::l,               "l_"},
-        {Event::Keyboard::Key::z,               "z_"},
-        {Event::Keyboard::Key::x,               "x_"},
-        {Event::Keyboard::Key::c,               "c_"},
-        {Event::Keyboard::Key::v,               "v_"},
-        {Event::Keyboard::Key::b,               "b_"},
-        {Event::Keyboard::Key::n,               "n_"},
-        {Event::Keyboard::Key::m,               "m_"},
-        {Event::Keyboard::Key::space,           "space_"},
-        {Event::Keyboard::Key::enter,           "enter_"},
-        {Event::Keyboard::Key::l_control,       "left_control_"},
-        {Event::Keyboard::Key::l_shift,         "left_shift_"},
-        {Event::Keyboard::Key::escape,          "escape_"},
-        {Event::Keyboard::Key::backspace,       "backspace_"},
+    { Event::Keyboard::Key::q, "q_" },
+    { Event::Keyboard::Key::w, "w_" },
+    { Event::Keyboard::Key::e, "e_" },
+    { Event::Keyboard::Key::r, "r_" },
+    { Event::Keyboard::Key::t, "t_" },
+    { Event::Keyboard::Key::y, "y_" },
+    { Event::Keyboard::Key::u, "u_" },
+    { Event::Keyboard::Key::i, "i_" },
+    { Event::Keyboard::Key::o, "o_" },
+    { Event::Keyboard::Key::p, "p_" },
+    { Event::Keyboard::Key::a, "a_" },
+    { Event::Keyboard::Key::s, "s_" },
+    { Event::Keyboard::Key::d, "d_" },
+    { Event::Keyboard::Key::f, "f_" },
+    { Event::Keyboard::Key::g, "g_" },
+    { Event::Keyboard::Key::h, "h_" },
+    { Event::Keyboard::Key::j, "j_" },
+    { Event::Keyboard::Key::k, "k_" },
+    { Event::Keyboard::Key::l, "l_" },
+    { Event::Keyboard::Key::z, "z_" },
+    { Event::Keyboard::Key::x, "x_" },
+    { Event::Keyboard::Key::c, "c_" },
+    { Event::Keyboard::Key::v, "v_" },
+    { Event::Keyboard::Key::b, "b_" },
+    { Event::Keyboard::Key::n, "n_" },
+    { Event::Keyboard::Key::m, "m_" },
+    { Event::Keyboard::Key::space, "space_" },
+    { Event::Keyboard::Key::enter, "enter_" },
+    { Event::Keyboard::Key::l_control, "left_control_" },
+    { Event::Keyboard::Key::l_shift, "left_shift_" },
+    { Event::Keyboard::Key::escape, "escape_" },
+    { Event::Keyboard::Key::backspace, "backspace_" },
 
-        // Number keys
-        {Event::Keyboard::Key::num_0,           "num_0_"},
-        {Event::Keyboard::Key::num_1,           "num_1_"},
-        {Event::Keyboard::Key::num_2,           "num_2_"},
-        {Event::Keyboard::Key::num_3,           "num_3_"},
-        {Event::Keyboard::Key::num_4,           "num_4_"},
-        {Event::Keyboard::Key::num_5,           "num_5_"},
-        {Event::Keyboard::Key::num_6,           "num_6_"},
-        {Event::Keyboard::Key::num_7,           "num_7_"},
-        {Event::Keyboard::Key::num_8,           "num_8_"},
-        {Event::Keyboard::Key::num_9,           "num_9_"},
+    // Number keys
+    { Event::Keyboard::Key::num_0, "num_0_" },
+    { Event::Keyboard::Key::num_1, "num_1_" },
+    { Event::Keyboard::Key::num_2, "num_2_" },
+    { Event::Keyboard::Key::num_3, "num_3_" },
+    { Event::Keyboard::Key::num_4, "num_4_" },
+    { Event::Keyboard::Key::num_5, "num_5_" },
+    { Event::Keyboard::Key::num_6, "num_6_" },
+    { Event::Keyboard::Key::num_7, "num_7_" },
+    { Event::Keyboard::Key::num_8, "num_8_" },
+    { Event::Keyboard::Key::num_9, "num_9_" },
 
-        // Function keys
-        {Event::Keyboard::Key::f1,              "f1_"},
-        {Event::Keyboard::Key::f2,              "f2_"},
-        {Event::Keyboard::Key::f3,              "f3_"},
-        {Event::Keyboard::Key::f4,              "f4_"},
-        {Event::Keyboard::Key::f5,              "f5_"},
-        {Event::Keyboard::Key::f6,              "f6_"},
-        {Event::Keyboard::Key::f7,              "f7_"},
-        {Event::Keyboard::Key::f8,              "f8_"},
-        {Event::Keyboard::Key::f9,              "f9_"},
-        {Event::Keyboard::Key::f10,             "f10_"},
-        {Event::Keyboard::Key::f11,             "f11_"},
-        {Event::Keyboard::Key::f12,             "f12_"},
+    // Function keys
+    { Event::Keyboard::Key::f1, "f1_" },
+    { Event::Keyboard::Key::f2, "f2_" },
+    { Event::Keyboard::Key::f3, "f3_" },
+    { Event::Keyboard::Key::f4, "f4_" },
+    { Event::Keyboard::Key::f5, "f5_" },
+    { Event::Keyboard::Key::f6, "f6_" },
+    { Event::Keyboard::Key::f7, "f7_" },
+    { Event::Keyboard::Key::f8, "f8_" },
+    { Event::Keyboard::Key::f9, "f9_" },
+    { Event::Keyboard::Key::f10, "f10_" },
+    { Event::Keyboard::Key::f11, "f11_" },
+    { Event::Keyboard::Key::f12, "f12_" },
 
-        // Arrow keys
-        {Event::Keyboard::Key::up_arrow,        "up_arrow_"},
-        {Event::Keyboard::Key::down_arrow,      "down_arrow_"},
-        {Event::Keyboard::Key::left_arrow,      "left_arrow_"},
-        {Event::Keyboard::Key::right_arrow,     "right_arrow_"},
+    // Arrow keys
+    { Event::Keyboard::Key::up_arrow, "up_arrow_" },
+    { Event::Keyboard::Key::down_arrow, "down_arrow_" },
+    { Event::Keyboard::Key::left_arrow, "left_arrow_" },
+    { Event::Keyboard::Key::right_arrow, "right_arrow_" },
 
-        // Miscellaneous keys
-        {Event::Keyboard::Key::insert,          "insert_"},
-        {Event::Keyboard::Key::home,            "home_"},
-        {Event::Keyboard::Key::page_up,         "page_up_"},
-        {Event::Keyboard::Key::delete_key,      "delete_key_"},
-        {Event::Keyboard::Key::end,             "end_"},
-        {Event::Keyboard::Key::page_down,       "page_down_"},
-        {Event::Keyboard::Key::caps_lock,       "caps_lock_"},
-        {Event::Keyboard::Key::scroll_lock,     "scroll_lock_"},
-        {Event::Keyboard::Key::num_lock,        "num_lock_"},
-        {Event::Keyboard::Key::print_screen,    "print_screen_"},
-        {Event::Keyboard::Key::pause,           "pause_"},
+    // Miscellaneous keys
+    { Event::Keyboard::Key::insert, "insert_" },
+    { Event::Keyboard::Key::home, "home_" },
+    { Event::Keyboard::Key::page_up, "page_up_" },
+    { Event::Keyboard::Key::delete_key, "delete_key_" },
+    { Event::Keyboard::Key::end, "end_" },
+    { Event::Keyboard::Key::page_down, "page_down_" },
+    { Event::Keyboard::Key::caps_lock, "caps_lock_" },
+    { Event::Keyboard::Key::scroll_lock, "scroll_lock_" },
+    { Event::Keyboard::Key::num_lock, "num_lock_" },
+    { Event::Keyboard::Key::print_screen, "print_screen_" },
+    { Event::Keyboard::Key::pause, "pause_" },
 
-        // Numpad keys
-        {Event::Keyboard::Key::numpad_0,        "numpad_0_"},
-        {Event::Keyboard::Key::numpad_1,        "numpad_1_"},
-        {Event::Keyboard::Key::numpad_2,        "numpad_2_"},
-        {Event::Keyboard::Key::numpad_3,        "numpad_3_"},
-        {Event::Keyboard::Key::numpad_4,        "numpad_4_"},
-        {Event::Keyboard::Key::numpad_5,        "numpad_5_"},
-        {Event::Keyboard::Key::numpad_6,        "numpad_6_"},
-        {Event::Keyboard::Key::numpad_7,        "numpad_7_"},
-        {Event::Keyboard::Key::numpad_8,        "numpad_8_"},
-        {Event::Keyboard::Key::numpad_9,        "numpad_9_"},
-        {Event::Keyboard::Key::numpad_decimal,  "numpad_decimal_"},
-        {Event::Keyboard::Key::numpad_divide,   "numpad_divide_"},
-        {Event::Keyboard::Key::numpad_multiply, "numpad_multiply_"},
-        {Event::Keyboard::Key::numpad_subtract, "numpad_subtract_"},
-        {Event::Keyboard::Key::numpad_add,      "numpad_add_"},
-        {Event::Keyboard::Key::numpad_enter,    "numpad_enter_"},
+    // Numpad keys
+    { Event::Keyboard::Key::numpad_0, "numpad_0_" },
+    { Event::Keyboard::Key::numpad_1, "numpad_1_" },
+    { Event::Keyboard::Key::numpad_2, "numpad_2_" },
+    { Event::Keyboard::Key::numpad_3, "numpad_3_" },
+    { Event::Keyboard::Key::numpad_4, "numpad_4_" },
+    { Event::Keyboard::Key::numpad_5, "numpad_5_" },
+    { Event::Keyboard::Key::numpad_6, "numpad_6_" },
+    { Event::Keyboard::Key::numpad_7, "numpad_7_" },
+    { Event::Keyboard::Key::numpad_8, "numpad_8_" },
+    { Event::Keyboard::Key::numpad_9, "numpad_9_" },
+    { Event::Keyboard::Key::numpad_decimal, "numpad_decimal_" },
+    { Event::Keyboard::Key::numpad_divide, "numpad_divide_" },
+    { Event::Keyboard::Key::numpad_multiply, "numpad_multiply_" },
+    { Event::Keyboard::Key::numpad_subtract, "numpad_subtract_" },
+    { Event::Keyboard::Key::numpad_add, "numpad_add_" },
+    { Event::Keyboard::Key::numpad_enter, "numpad_enter_" },
 
-        {Event::Keyboard::Key::not_key,         ""}
+    { Event::Keyboard::Key::not_key, "" }
 };
 
 static const std::unordered_map<Event::Mouse::Button, std::string_view> s_eventButtonsToStringView{
-        {Event::Mouse::Button::left,       "left_"},
-        {Event::Mouse::Button::right,      "right_"},
-        {Event::Mouse::Button::middle,     "middle_"},
-        {Event::Mouse::Button::not_button, ""}
+    { Event::Mouse::Button::left, "left_" },
+    { Event::Mouse::Button::right, "right_" },
+    { Event::Mouse::Button::middle, "middle_" },
+    { Event::Mouse::Button::not_button, "" }
 };
 
-std::ostream &operator<<(std::ostream &out, const Event &event) {
+std::ostream& operator<<(std::ostream& out, const Event& event) {
     out << s_eventKeysToStringView.at(event.keyboard.key)
         << s_eventButtonsToStringView.at(event.mouse.button)
         << s_eventTypeToStringView.at(event.type);
@@ -168,276 +168,276 @@ std::string_view keyToStr(Event::Keyboard::Key key) { return s_eventKeysToString
 
 Event::Keyboard::Key ImGuiKeyToEventKey(ImGuiKey key) {
     switch (key) {
-        case ImGuiKey_LeftArrow:
-            return Event::Keyboard::Key::left_arrow;
-        case ImGuiKey_RightArrow:
-            return Event::Keyboard::Key::right_arrow;
-        case ImGuiKey_UpArrow:
-            return Event::Keyboard::Key::up_arrow;
-        case ImGuiKey_DownArrow:
-            return Event::Keyboard::Key::down_arrow;
-        case ImGuiKey_KeyPadEnter:
-            return Event::Keyboard::Key::numpad_enter;
-        case ImGuiKey_KeypadMultiply:
-            return Event::Keyboard::Key::numpad_multiply;
-        case ImGuiKey_KeypadAdd:
-            return Event::Keyboard::Key::numpad_add;
-        case ImGuiKey_KeypadSubtract:
-            return Event::Keyboard::Key::numpad_subtract;
-        case ImGuiKey_KeypadDivide:
-            return Event::Keyboard::Key::numpad_divide;
-        case ImGuiKey_0:
-            return Event::Keyboard::Key::num_0;
-        case ImGuiKey_1:
-            return Event::Keyboard::Key::num_1;
-        case ImGuiKey_2:
-            return Event::Keyboard::Key::num_2;
-        case ImGuiKey_3:
-            return Event::Keyboard::Key::num_3;
-        case ImGuiKey_4:
-            return Event::Keyboard::Key::num_4;
-        case ImGuiKey_5:
-            return Event::Keyboard::Key::num_5;
-        case ImGuiKey_6:
-            return Event::Keyboard::Key::num_6;
-        case ImGuiKey_7:
-            return Event::Keyboard::Key::num_7;
-        case ImGuiKey_8:
-            return Event::Keyboard::Key::num_8;
-        case ImGuiKey_9:
-            return Event::Keyboard::Key::num_9;
-        case ImGuiKey_F1:
-            return Event::Keyboard::Key::f1;
-        case ImGuiKey_F2:
-            return Event::Keyboard::Key::f2;
-        case ImGuiKey_F3:
-            return Event::Keyboard::Key::f3;
-        case ImGuiKey_F4:
-            return Event::Keyboard::Key::f4;
-        case ImGuiKey_F5:
-            return Event::Keyboard::Key::f5;
-        case ImGuiKey_F6:
-            return Event::Keyboard::Key::f6;
-        case ImGuiKey_F7:
-            return Event::Keyboard::Key::f7;
-        case ImGuiKey_F8:
-            return Event::Keyboard::Key::f8;
-        case ImGuiKey_F9:
-            return Event::Keyboard::Key::f9;
-        case ImGuiKey_F10:
-            return Event::Keyboard::Key::f10;
-        case ImGuiKey_F11:
-            return Event::Keyboard::Key::f11;
-        case ImGuiKey_F12:
-            return Event::Keyboard::Key::f12;
-        case ImGuiKey_Pause:
-            return Event::Keyboard::Key::pause;
-        case ImGuiKey_Backspace:
-            return Event::Keyboard::Key::backspace;
-        case ImGuiKey_Enter:
-            return Event::Keyboard::Key::enter;
-        case ImGuiKey_Escape:
-            return Event::Keyboard::Key::escape;
-        case ImGuiKey_A:
-            return Event::Keyboard::Key::a;
-        case ImGuiKey_B:
-            return Event::Keyboard::Key::b;
-        case ImGuiKey_C:
-            return Event::Keyboard::Key::c;
+    case ImGuiKey_LeftArrow:
+        return Event::Keyboard::Key::left_arrow;
+    case ImGuiKey_RightArrow:
+        return Event::Keyboard::Key::right_arrow;
+    case ImGuiKey_UpArrow:
+        return Event::Keyboard::Key::up_arrow;
+    case ImGuiKey_DownArrow:
+        return Event::Keyboard::Key::down_arrow;
+    case ImGuiKey_KeyPadEnter:
+        return Event::Keyboard::Key::numpad_enter;
+    case ImGuiKey_KeypadMultiply:
+        return Event::Keyboard::Key::numpad_multiply;
+    case ImGuiKey_KeypadAdd:
+        return Event::Keyboard::Key::numpad_add;
+    case ImGuiKey_KeypadSubtract:
+        return Event::Keyboard::Key::numpad_subtract;
+    case ImGuiKey_KeypadDivide:
+        return Event::Keyboard::Key::numpad_divide;
+    case ImGuiKey_0:
+        return Event::Keyboard::Key::num_0;
+    case ImGuiKey_1:
+        return Event::Keyboard::Key::num_1;
+    case ImGuiKey_2:
+        return Event::Keyboard::Key::num_2;
+    case ImGuiKey_3:
+        return Event::Keyboard::Key::num_3;
+    case ImGuiKey_4:
+        return Event::Keyboard::Key::num_4;
+    case ImGuiKey_5:
+        return Event::Keyboard::Key::num_5;
+    case ImGuiKey_6:
+        return Event::Keyboard::Key::num_6;
+    case ImGuiKey_7:
+        return Event::Keyboard::Key::num_7;
+    case ImGuiKey_8:
+        return Event::Keyboard::Key::num_8;
+    case ImGuiKey_9:
+        return Event::Keyboard::Key::num_9;
+    case ImGuiKey_F1:
+        return Event::Keyboard::Key::f1;
+    case ImGuiKey_F2:
+        return Event::Keyboard::Key::f2;
+    case ImGuiKey_F3:
+        return Event::Keyboard::Key::f3;
+    case ImGuiKey_F4:
+        return Event::Keyboard::Key::f4;
+    case ImGuiKey_F5:
+        return Event::Keyboard::Key::f5;
+    case ImGuiKey_F6:
+        return Event::Keyboard::Key::f6;
+    case ImGuiKey_F7:
+        return Event::Keyboard::Key::f7;
+    case ImGuiKey_F8:
+        return Event::Keyboard::Key::f8;
+    case ImGuiKey_F9:
+        return Event::Keyboard::Key::f9;
+    case ImGuiKey_F10:
+        return Event::Keyboard::Key::f10;
+    case ImGuiKey_F11:
+        return Event::Keyboard::Key::f11;
+    case ImGuiKey_F12:
+        return Event::Keyboard::Key::f12;
+    case ImGuiKey_Pause:
+        return Event::Keyboard::Key::pause;
+    case ImGuiKey_Backspace:
+        return Event::Keyboard::Key::backspace;
+    case ImGuiKey_Enter:
+        return Event::Keyboard::Key::enter;
+    case ImGuiKey_Escape:
+        return Event::Keyboard::Key::escape;
+    case ImGuiKey_A:
+        return Event::Keyboard::Key::a;
+    case ImGuiKey_B:
+        return Event::Keyboard::Key::b;
+    case ImGuiKey_C:
+        return Event::Keyboard::Key::c;
 
-        case ImGuiKey_D:
-            return Event::Keyboard::Key::d;
-        case ImGuiKey_E:
-            return Event::Keyboard::Key::e;
-        case ImGuiKey_F:
-            return Event::Keyboard::Key::f;
-        case ImGuiKey_G:
-            return Event::Keyboard::Key::g;
-        case ImGuiKey_H:
-            return Event::Keyboard::Key::h;
-        case ImGuiKey_I:
-            return Event::Keyboard::Key::i;
-        case ImGuiKey_J:
-            return Event::Keyboard::Key::j;
-        case ImGuiKey_K:
-            return Event::Keyboard::Key::k;
-        case ImGuiKey_L:
-            return Event::Keyboard::Key::l;
-        case ImGuiKey_M:
-            return Event::Keyboard::Key::m;
-        case ImGuiKey_N:
-            return Event::Keyboard::Key::n;
-        case ImGuiKey_O:
-            return Event::Keyboard::Key::o;
-        case ImGuiKey_P:
-            return Event::Keyboard::Key::p;
-        case ImGuiKey_Q:
-            return Event::Keyboard::Key::q;
-        case ImGuiKey_R:
-            return Event::Keyboard::Key::r;
-        case ImGuiKey_S:
-            return Event::Keyboard::Key::s;
-        case ImGuiKey_T:
-            return Event::Keyboard::Key::t;
-        case ImGuiKey_U:
-            return Event::Keyboard::Key::u;
-        case ImGuiKey_V:
-            return Event::Keyboard::Key::v;
-        case ImGuiKey_W:
-            return Event::Keyboard::Key::w;
-        case ImGuiKey_X:
-            return Event::Keyboard::Key::x;
-        case ImGuiKey_Y:
-            return Event::Keyboard::Key::y;
-        case ImGuiKey_Z:
-            return Event::Keyboard::Key::z;
-        case ImGuiKey_Space:
-            return Event::Keyboard::Key::space;
-        case ImGuiKey_Insert:
-            return Event::Keyboard::Key::insert;
-        case ImGuiKey_Home:
-            return Event::Keyboard::Key::home;
-        case ImGuiKey_PageUp:
-            return Event::Keyboard::Key::page_up;
-        case ImGuiKey_Delete:
-            return Event::Keyboard::Key::delete_key;
-        case ImGuiKey_End:
-            return Event::Keyboard::Key::end;
-        case ImGuiKey_PageDown:
-            return Event::Keyboard::Key::page_down;
-        case ImGuiKey_CapsLock:
-            return Event::Keyboard::Key::caps_lock;
-        case ImGuiKey_ScrollLock:
-            return Event::Keyboard::Key::scroll_lock;
-        case ImGuiKey_NumLock:
-            return Event::Keyboard::Key::num_lock;
-        case ImGuiKey_PrintScreen:
-            return Event::Keyboard::Key::print_screen;
-        case ImGuiKey_LeftShift:
-            return Event::Keyboard::Key::l_shift;
-        case ImGuiKey_LeftCtrl:
-            return Event::Keyboard::Key::l_control;
-        default:
-            return Event::Keyboard::Key::not_key;
+    case ImGuiKey_D:
+        return Event::Keyboard::Key::d;
+    case ImGuiKey_E:
+        return Event::Keyboard::Key::e;
+    case ImGuiKey_F:
+        return Event::Keyboard::Key::f;
+    case ImGuiKey_G:
+        return Event::Keyboard::Key::g;
+    case ImGuiKey_H:
+        return Event::Keyboard::Key::h;
+    case ImGuiKey_I:
+        return Event::Keyboard::Key::i;
+    case ImGuiKey_J:
+        return Event::Keyboard::Key::j;
+    case ImGuiKey_K:
+        return Event::Keyboard::Key::k;
+    case ImGuiKey_L:
+        return Event::Keyboard::Key::l;
+    case ImGuiKey_M:
+        return Event::Keyboard::Key::m;
+    case ImGuiKey_N:
+        return Event::Keyboard::Key::n;
+    case ImGuiKey_O:
+        return Event::Keyboard::Key::o;
+    case ImGuiKey_P:
+        return Event::Keyboard::Key::p;
+    case ImGuiKey_Q:
+        return Event::Keyboard::Key::q;
+    case ImGuiKey_R:
+        return Event::Keyboard::Key::r;
+    case ImGuiKey_S:
+        return Event::Keyboard::Key::s;
+    case ImGuiKey_T:
+        return Event::Keyboard::Key::t;
+    case ImGuiKey_U:
+        return Event::Keyboard::Key::u;
+    case ImGuiKey_V:
+        return Event::Keyboard::Key::v;
+    case ImGuiKey_W:
+        return Event::Keyboard::Key::w;
+    case ImGuiKey_X:
+        return Event::Keyboard::Key::x;
+    case ImGuiKey_Y:
+        return Event::Keyboard::Key::y;
+    case ImGuiKey_Z:
+        return Event::Keyboard::Key::z;
+    case ImGuiKey_Space:
+        return Event::Keyboard::Key::space;
+    case ImGuiKey_Insert:
+        return Event::Keyboard::Key::insert;
+    case ImGuiKey_Home:
+        return Event::Keyboard::Key::home;
+    case ImGuiKey_PageUp:
+        return Event::Keyboard::Key::page_up;
+    case ImGuiKey_Delete:
+        return Event::Keyboard::Key::delete_key;
+    case ImGuiKey_End:
+        return Event::Keyboard::Key::end;
+    case ImGuiKey_PageDown:
+        return Event::Keyboard::Key::page_down;
+    case ImGuiKey_CapsLock:
+        return Event::Keyboard::Key::caps_lock;
+    case ImGuiKey_ScrollLock:
+        return Event::Keyboard::Key::scroll_lock;
+    case ImGuiKey_NumLock:
+        return Event::Keyboard::Key::num_lock;
+    case ImGuiKey_PrintScreen:
+        return Event::Keyboard::Key::print_screen;
+    case ImGuiKey_LeftShift:
+        return Event::Keyboard::Key::l_shift;
+    case ImGuiKey_LeftCtrl:
+        return Event::Keyboard::Key::l_control;
+    default:
+        return Event::Keyboard::Key::not_key;
     }
 }
 
-std::ifstream &operator>>(std::ifstream &in, Triangle &triangle) {
-    for (auto &vertex: triangle.vertices)
+std::ifstream& operator>>(std::ifstream& in, Triangle& triangle) {
+    for (auto& vertex : triangle.vertices)
         in >> vertex;
 
     return in;
 }
 
-std::ifstream &operator>>(std::ifstream &in, Triangle2 &triangle2) {
-    for (auto &vertex: triangle2.vertices)
+std::ifstream& operator>>(std::ifstream& in, Triangle2& triangle2) {
+    for (auto& vertex : triangle2.vertices)
         in >> vertex;
 
     return in;
 }
 
-static std::optional<Event> checkKeyboardInput(SDL_Event &sdlEvent) {
+static std::optional<Event> checkKeyboardInput(SDL_Event& sdlEvent) {
     static const std::unordered_map<SDL_Keycode, Event::Keyboard::Key> keymap{
-            {SDLK_q,            Event::Keyboard::Key::q},
-            {SDLK_w,            Event::Keyboard::Key::w},
-            {SDLK_e,            Event::Keyboard::Key::e},
-            {SDLK_r,            Event::Keyboard::Key::r},
-            {SDLK_t,            Event::Keyboard::Key::t},
-            {SDLK_y,            Event::Keyboard::Key::y},
-            {SDLK_u,            Event::Keyboard::Key::u},
-            {SDLK_i,            Event::Keyboard::Key::i},
-            {SDLK_o,            Event::Keyboard::Key::o},
-            {SDLK_p,            Event::Keyboard::Key::p},
-            {SDLK_a,            Event::Keyboard::Key::a},
-            {SDLK_s,            Event::Keyboard::Key::s},
-            {SDLK_d,            Event::Keyboard::Key::d},
-            {SDLK_f,            Event::Keyboard::Key::f},
-            {SDLK_g,            Event::Keyboard::Key::g},
-            {SDLK_h,            Event::Keyboard::Key::h},
-            {SDLK_j,            Event::Keyboard::Key::j},
-            {SDLK_k,            Event::Keyboard::Key::k},
-            {SDLK_l,            Event::Keyboard::Key::l},
-            {SDLK_z,            Event::Keyboard::Key::z},
-            {SDLK_x,            Event::Keyboard::Key::x},
-            {SDLK_c,            Event::Keyboard::Key::c},
-            {SDLK_v,            Event::Keyboard::Key::v},
-            {SDLK_b,            Event::Keyboard::Key::b},
-            {SDLK_n,            Event::Keyboard::Key::n},
-            {SDLK_m,            Event::Keyboard::Key::m},
-            {SDLK_SPACE,        Event::Keyboard::Key::space},
-            {SDLK_RETURN,       Event::Keyboard::Key::enter},
-            {SDLK_LCTRL,        Event::Keyboard::Key::l_control},
-            {SDLK_LSHIFT,       Event::Keyboard::Key::l_shift},
-            {SDLK_ESCAPE,       Event::Keyboard::Key::escape},
-            {SDLK_BACKSPACE,    Event::Keyboard::Key::backspace},
+        { SDLK_q, Event::Keyboard::Key::q },
+        { SDLK_w, Event::Keyboard::Key::w },
+        { SDLK_e, Event::Keyboard::Key::e },
+        { SDLK_r, Event::Keyboard::Key::r },
+        { SDLK_t, Event::Keyboard::Key::t },
+        { SDLK_y, Event::Keyboard::Key::y },
+        { SDLK_u, Event::Keyboard::Key::u },
+        { SDLK_i, Event::Keyboard::Key::i },
+        { SDLK_o, Event::Keyboard::Key::o },
+        { SDLK_p, Event::Keyboard::Key::p },
+        { SDLK_a, Event::Keyboard::Key::a },
+        { SDLK_s, Event::Keyboard::Key::s },
+        { SDLK_d, Event::Keyboard::Key::d },
+        { SDLK_f, Event::Keyboard::Key::f },
+        { SDLK_g, Event::Keyboard::Key::g },
+        { SDLK_h, Event::Keyboard::Key::h },
+        { SDLK_j, Event::Keyboard::Key::j },
+        { SDLK_k, Event::Keyboard::Key::k },
+        { SDLK_l, Event::Keyboard::Key::l },
+        { SDLK_z, Event::Keyboard::Key::z },
+        { SDLK_x, Event::Keyboard::Key::x },
+        { SDLK_c, Event::Keyboard::Key::c },
+        { SDLK_v, Event::Keyboard::Key::v },
+        { SDLK_b, Event::Keyboard::Key::b },
+        { SDLK_n, Event::Keyboard::Key::n },
+        { SDLK_m, Event::Keyboard::Key::m },
+        { SDLK_SPACE, Event::Keyboard::Key::space },
+        { SDLK_RETURN, Event::Keyboard::Key::enter },
+        { SDLK_LCTRL, Event::Keyboard::Key::l_control },
+        { SDLK_LSHIFT, Event::Keyboard::Key::l_shift },
+        { SDLK_ESCAPE, Event::Keyboard::Key::escape },
+        { SDLK_BACKSPACE, Event::Keyboard::Key::backspace },
 
-            // Number keys
-            {SDLK_0,            Event::Keyboard::Key::num_0},
-            {SDLK_1,            Event::Keyboard::Key::num_1},
-            {SDLK_2,            Event::Keyboard::Key::num_2},
-            {SDLK_3,            Event::Keyboard::Key::num_3},
-            {SDLK_4,            Event::Keyboard::Key::num_4},
-            {SDLK_5,            Event::Keyboard::Key::num_5},
-            {SDLK_6,            Event::Keyboard::Key::num_6},
-            {SDLK_7,            Event::Keyboard::Key::num_7},
-            {SDLK_8,            Event::Keyboard::Key::num_8},
-            {SDLK_9,            Event::Keyboard::Key::num_9},
+        // Number keys
+        { SDLK_0, Event::Keyboard::Key::num_0 },
+        { SDLK_1, Event::Keyboard::Key::num_1 },
+        { SDLK_2, Event::Keyboard::Key::num_2 },
+        { SDLK_3, Event::Keyboard::Key::num_3 },
+        { SDLK_4, Event::Keyboard::Key::num_4 },
+        { SDLK_5, Event::Keyboard::Key::num_5 },
+        { SDLK_6, Event::Keyboard::Key::num_6 },
+        { SDLK_7, Event::Keyboard::Key::num_7 },
+        { SDLK_8, Event::Keyboard::Key::num_8 },
+        { SDLK_9, Event::Keyboard::Key::num_9 },
 
-            // Function keys
-            {SDLK_F1,           Event::Keyboard::Key::f1},
-            {SDLK_F2,           Event::Keyboard::Key::f2},
-            {SDLK_F3,           Event::Keyboard::Key::f3},
-            {SDLK_F4,           Event::Keyboard::Key::f4},
-            {SDLK_F5,           Event::Keyboard::Key::f5},
-            {SDLK_F6,           Event::Keyboard::Key::f6},
-            {SDLK_F7,           Event::Keyboard::Key::f7},
-            {SDLK_F8,           Event::Keyboard::Key::f8},
-            {SDLK_F9,           Event::Keyboard::Key::f9},
-            {SDLK_F10,          Event::Keyboard::Key::f10},
-            {SDLK_F11,          Event::Keyboard::Key::f11},
-            {SDLK_F12,          Event::Keyboard::Key::f12},
+        // Function keys
+        { SDLK_F1, Event::Keyboard::Key::f1 },
+        { SDLK_F2, Event::Keyboard::Key::f2 },
+        { SDLK_F3, Event::Keyboard::Key::f3 },
+        { SDLK_F4, Event::Keyboard::Key::f4 },
+        { SDLK_F5, Event::Keyboard::Key::f5 },
+        { SDLK_F6, Event::Keyboard::Key::f6 },
+        { SDLK_F7, Event::Keyboard::Key::f7 },
+        { SDLK_F8, Event::Keyboard::Key::f8 },
+        { SDLK_F9, Event::Keyboard::Key::f9 },
+        { SDLK_F10, Event::Keyboard::Key::f10 },
+        { SDLK_F11, Event::Keyboard::Key::f11 },
+        { SDLK_F12, Event::Keyboard::Key::f12 },
 
-            // Arrow keys
-            {SDLK_UP,           Event::Keyboard::Key::up_arrow},
-            {SDLK_DOWN,         Event::Keyboard::Key::down_arrow},
-            {SDLK_LEFT,         Event::Keyboard::Key::left_arrow},
-            {SDLK_RIGHT,        Event::Keyboard::Key::right_arrow},
+        // Arrow keys
+        { SDLK_UP, Event::Keyboard::Key::up_arrow },
+        { SDLK_DOWN, Event::Keyboard::Key::down_arrow },
+        { SDLK_LEFT, Event::Keyboard::Key::left_arrow },
+        { SDLK_RIGHT, Event::Keyboard::Key::right_arrow },
 
-            // Miscellaneous keys
-            {SDLK_INSERT,       Event::Keyboard::Key::insert},
-            {SDLK_HOME,         Event::Keyboard::Key::home},
-            {SDLK_PAGEUP,       Event::Keyboard::Key::page_up},
-            {SDLK_DELETE,       Event::Keyboard::Key::delete_key},
-            {SDLK_END,          Event::Keyboard::Key::end},
-            {SDLK_PAGEDOWN,     Event::Keyboard::Key::page_down},
-            {SDLK_CAPSLOCK,     Event::Keyboard::Key::caps_lock},
-            {SDLK_SCROLLLOCK,   Event::Keyboard::Key::scroll_lock},
-            {SDLK_NUMLOCKCLEAR, Event::Keyboard::Key::num_lock},
-            {SDLK_PRINTSCREEN,  Event::Keyboard::Key::print_screen},
-            {SDLK_PAUSE,        Event::Keyboard::Key::pause},
+        // Miscellaneous keys
+        { SDLK_INSERT, Event::Keyboard::Key::insert },
+        { SDLK_HOME, Event::Keyboard::Key::home },
+        { SDLK_PAGEUP, Event::Keyboard::Key::page_up },
+        { SDLK_DELETE, Event::Keyboard::Key::delete_key },
+        { SDLK_END, Event::Keyboard::Key::end },
+        { SDLK_PAGEDOWN, Event::Keyboard::Key::page_down },
+        { SDLK_CAPSLOCK, Event::Keyboard::Key::caps_lock },
+        { SDLK_SCROLLLOCK, Event::Keyboard::Key::scroll_lock },
+        { SDLK_NUMLOCKCLEAR, Event::Keyboard::Key::num_lock },
+        { SDLK_PRINTSCREEN, Event::Keyboard::Key::print_screen },
+        { SDLK_PAUSE, Event::Keyboard::Key::pause },
 
-            // Numpad keys
-            {SDLK_KP_0,         Event::Keyboard::Key::numpad_0},
-            {SDLK_KP_1,         Event::Keyboard::Key::numpad_1},
-            {SDLK_KP_2,         Event::Keyboard::Key::numpad_2},
-            {SDLK_KP_3,         Event::Keyboard::Key::numpad_3},
-            {SDLK_KP_4,         Event::Keyboard::Key::numpad_4},
-            {SDLK_KP_5,         Event::Keyboard::Key::numpad_5},
-            {SDLK_KP_6,         Event::Keyboard::Key::numpad_6},
-            {SDLK_KP_7,         Event::Keyboard::Key::numpad_7},
-            {SDLK_KP_8,         Event::Keyboard::Key::numpad_8},
-            {SDLK_KP_9,         Event::Keyboard::Key::numpad_9},
-            {SDLK_KP_PERIOD,    Event::Keyboard::Key::numpad_decimal},
-            {SDLK_KP_DIVIDE,    Event::Keyboard::Key::numpad_divide},
-            {SDLK_KP_MULTIPLY,  Event::Keyboard::Key::numpad_multiply},
-            {SDLK_KP_MINUS,     Event::Keyboard::Key::numpad_subtract},
-            {SDLK_KP_PLUS,      Event::Keyboard::Key::numpad_add},
-            {SDLK_KP_ENTER,     Event::Keyboard::Key::numpad_enter},
+        // Numpad keys
+        { SDLK_KP_0, Event::Keyboard::Key::numpad_0 },
+        { SDLK_KP_1, Event::Keyboard::Key::numpad_1 },
+        { SDLK_KP_2, Event::Keyboard::Key::numpad_2 },
+        { SDLK_KP_3, Event::Keyboard::Key::numpad_3 },
+        { SDLK_KP_4, Event::Keyboard::Key::numpad_4 },
+        { SDLK_KP_5, Event::Keyboard::Key::numpad_5 },
+        { SDLK_KP_6, Event::Keyboard::Key::numpad_6 },
+        { SDLK_KP_7, Event::Keyboard::Key::numpad_7 },
+        { SDLK_KP_8, Event::Keyboard::Key::numpad_8 },
+        { SDLK_KP_9, Event::Keyboard::Key::numpad_9 },
+        { SDLK_KP_PERIOD, Event::Keyboard::Key::numpad_decimal },
+        { SDLK_KP_DIVIDE, Event::Keyboard::Key::numpad_divide },
+        { SDLK_KP_MULTIPLY, Event::Keyboard::Key::numpad_multiply },
+        { SDLK_KP_MINUS, Event::Keyboard::Key::numpad_subtract },
+        { SDLK_KP_PLUS, Event::Keyboard::Key::numpad_add },
+        { SDLK_KP_ENTER, Event::Keyboard::Key::numpad_enter },
 
-            {SDLK_UNKNOWN,      Event::Keyboard::Key::not_key}
+        { SDLK_UNKNOWN, Event::Keyboard::Key::not_key }
     };
 
-    if (auto found{keymap.find(sdlEvent.key.keysym.sym)}; found != keymap.end()) {
+    if (auto found{ keymap.find(sdlEvent.key.keysym.sym) }; found != keymap.end()) {
         Event event{};
         event.keyboard.key = found->second;
         event.mouse.pos.x = sdlEvent.motion.x;
@@ -456,11 +456,11 @@ static std::optional<Event> checkKeyboardInput(SDL_Event &sdlEvent) {
     return std::nullopt;
 }
 
-static std::optional<Event> checkMouseInput(SDL_Event &sdlEvent) {
+static std::optional<Event> checkMouseInput(SDL_Event& sdlEvent) {
     static const std::unordered_map<int, Event::Mouse::Button> mousemap{
-            {SDL_BUTTON_LEFT,   Event::Mouse::Button::left},
-            {SDL_BUTTON_RIGHT,  Event::Mouse::Button::right},
-            {SDL_BUTTON_MIDDLE, Event::Mouse::Button::middle}
+        { SDL_BUTTON_LEFT, Event::Mouse::Button::left },
+        { SDL_BUTTON_RIGHT, Event::Mouse::Button::right },
+        { SDL_BUTTON_MIDDLE, Event::Mouse::Button::middle }
     };
 
     Event event{};
@@ -468,7 +468,7 @@ static std::optional<Event> checkMouseInput(SDL_Event &sdlEvent) {
     event.mouse.pos.y = sdlEvent.motion.y;
 
     if (sdlEvent.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-        if (auto found{mousemap.find(sdlEvent.button.button)}; found != mousemap.end()) {
+        if (auto found{ mousemap.find(sdlEvent.button.button) }; found != mousemap.end()) {
             event.mouse.button = found->second;
             event.type = Event::Type::mouse_down;
             return event;
@@ -476,7 +476,7 @@ static std::optional<Event> checkMouseInput(SDL_Event &sdlEvent) {
     }
 
     if (sdlEvent.type == SDL_EVENT_MOUSE_BUTTON_UP) {
-        if (auto found{mousemap.find(sdlEvent.button.button)}; found != mousemap.end()) {
+        if (auto found{ mousemap.find(sdlEvent.button.button) }; found != mousemap.end()) {
             event.mouse.button = found->second;
             event.type = Event::Type::mouse_up;
             return event;
@@ -498,33 +498,33 @@ static std::optional<Event> checkMouseInput(SDL_Event &sdlEvent) {
     return std::nullopt;
 }
 
-static std::optional<Event> checkTouchInput(SDL_Event &sdlEvent) {
+static std::optional<Event> checkTouchInput(SDL_Event& sdlEvent) {
     Event event{};
 
     static std::unordered_map<std::int64_t, std::pair<float, float>> fingersMap{};
 
     switch (sdlEvent.type) {
-        case SDL_EVENT_FINGER_DOWN:
-            event.type = Event::Type::touch_down;
-            fingersMap[sdlEvent.tfinger.fingerId].first =
-                    sdlEvent.tfinger.x * static_cast<float>(getEngineInstance()->getWindowSize().width);
-            fingersMap[sdlEvent.tfinger.fingerId].second =
-                    (1.0f - sdlEvent.tfinger.y) *
-                    static_cast<float>(getEngineInstance()->getWindowSize().height);
-            break;
-        case SDL_EVENT_FINGER_UP:
-            event.type = Event::Type::touch_up;
-            break;
-        case SDL_EVENT_FINGER_MOTION:
-            event.type = Event::Type::touch_motion;
-            break;
-        default:
-            event.type = Event::Type::not_event;
+    case SDL_EVENT_FINGER_DOWN:
+        event.type = Event::Type::touch_down;
+        fingersMap[sdlEvent.tfinger.fingerId].first =
+            sdlEvent.tfinger.x * static_cast<float>(getEngineInstance()->getWindowSize().width);
+        fingersMap[sdlEvent.tfinger.fingerId].second =
+            (1.0f - sdlEvent.tfinger.y) *
+            static_cast<float>(getEngineInstance()->getWindowSize().height);
+        break;
+    case SDL_EVENT_FINGER_UP:
+        event.type = Event::Type::touch_up;
+        break;
+    case SDL_EVENT_FINGER_MOTION:
+        event.type = Event::Type::touch_motion;
+        break;
+    default:
+        event.type = Event::Type::not_event;
     }
 
     event.touch.id = sdlEvent.tfinger.fingerId;
     event.touch.pos.x =
-            sdlEvent.tfinger.x * static_cast<float>(getEngineInstance()->getWindowSize().width);
+        sdlEvent.tfinger.x * static_cast<float>(getEngineInstance()->getWindowSize().width);
     event.touch.pos.y = (1.0f - sdlEvent.tfinger.y) *
                         static_cast<float>(getEngineInstance()->getWindowSize().height);
 
@@ -537,9 +537,9 @@ static std::optional<Event> checkTouchInput(SDL_Event &sdlEvent) {
     return event;
 }
 
-static std::string readFile(const fs::path &path) {
-    std::ifstream in{path};
-    if (!in.is_open()) throw std::runtime_error{"Error : readFile : bad open file"s};
+static std::string readFile(const fs::path& path) {
+    std::ifstream in{ path };
+    if (!in.is_open()) throw std::runtime_error{ "Error : readFile : bad open file"s };
 
     std::string result{};
     while (in) {
@@ -555,28 +555,30 @@ static std::string readFile(const fs::path &path) {
 
 static std::mutex g_audioMutex{};
 
-class EngineImpl final : public IEngine {
+class EngineImpl final : public IEngine
+{
 public:
     friend class Audio;
 
 private:
-    SDL_Window *m_window{};
+    SDL_Window* m_window{};
     SDL_GLContext m_glContext{};
     GLuint m_verticesArray{};
 
     SDL_AudioSpec m_audioSpec{};
     SDL_AudioDeviceID m_audioDevice{};
     std::string m_currentAudioDeviceName{};
-    int m_audioVolume{SDL_MIX_MAXVOLUME};
+    int m_audioVolume{ SDL_MIX_MAXVOLUME };
 
     ShaderProgram m_shaderProgram{};
     ShaderProgram m_shaderProgramWithView{};
 
-    std::reference_wrapper<ShaderProgram> m_program{m_shaderProgram};
+    std::reference_wrapper<ShaderProgram> m_program{ m_shaderProgram };
 
     std::vector<std::reference_wrapper<Audio>> m_sounds{};
 
-    int m_framerate{150};
+    int m_framerate{ 150 };
+    bool m_isEnd{};
 
 public:
     EngineImpl() = default;
@@ -587,44 +589,43 @@ public:
 
     void uninitialize() override;
 
-    bool readInput(Event &event) override;
+    bool readInput(Event& event) override;
 
     void swapBuffers() override;
 
     void recompileShaders() override;
 
-    void render(const VertexBuffer<Vertex2> &vertexBuffer,
-                const IndexBuffer<std::uint16_t> &indexBuffer,
-                const Texture &texture) override;
+    void render(const VertexBuffer<Vertex2>& vertexBuffer,
+                const IndexBuffer<std::uint16_t>& indexBuffer,
+                const Texture& texture) override;
 
-    void render(const VertexBuffer<Vertex2> &vertexBuffer,
-                const IndexBuffer<std::uint32_t> &indexBuffer,
-                const Texture &texture) override;
+    void render(const VertexBuffer<Vertex2>& vertexBuffer,
+                const IndexBuffer<std::uint32_t>& indexBuffer,
+                const Texture& texture) override;
 
-    void render(const VertexBuffer<Vertex2> &vertexBuffer,
-                const IndexBuffer<std::uint32_t> &indexBuffer,
-                const Texture &texture,
-                const glm::mat3 &matrix) override;
+    void render(const VertexBuffer<Vertex2>& vertexBuffer,
+                const IndexBuffer<std::uint32_t>& indexBuffer,
+                const Texture& texture,
+                const glm::mat3& matrix) override;
 
-    void render(const VertexBuffer<Vertex2> &vertexBuffer,
-                const IndexBuffer<std::uint32_t> &indexBuffer,
-                const Texture &texture,
-                const glm::mat3 &matrix,
-                const View &view) override;
+    void render(const VertexBuffer<Vertex2>& vertexBuffer,
+                const IndexBuffer<std::uint32_t>& indexBuffer,
+                const Texture& texture,
+                const glm::mat3& matrix,
+                const View& view) override;
 
-    void render(const Sprite &sprite) override;
+    void render(const Sprite& sprite) override;
 
-    void render(const Sprite &sprite, const View &view) override;
+    void render(const Sprite& sprite, const View& view) override;
 
     [[nodiscard]] WindowSize getWindowSize() const noexcept override {
         int width{};
         int height{};
         SDL_GetWindowSize(m_window, &width, &height);
-        return {width, height};
+        return { width, height };
     }
 
     void setVSync(bool isEnable) override { SDL_GL_SetSwapInterval(isEnable); }
-
     [[nodiscard]] bool getVSync() const noexcept override {
         int isVSync{};
         SDL_GL_GetSwapInterval(&isVSync);
@@ -632,60 +633,58 @@ public:
     }
 
     void setFramerate(int framerate) override { m_framerate = framerate; }
-
     [[nodiscard]] int getFramerate() const noexcept override { return m_framerate; }
 
-    [[nodiscard]] ImGuiContext *getImGuiContext() const noexcept override {
+    [[nodiscard]] ImGuiContext* getImGuiContext() const noexcept override {
         return ImGui::GetCurrentContext();
     }
 
     [[nodiscard]] std::vector<std::string> getAudioDeviceNames() const noexcept override;
-
-    [[nodiscard]] const std::string &getCurrentAudioDeviceName() const noexcept override;
+    [[nodiscard]] const std::string& getCurrentAudioDeviceName() const noexcept override;
 
     void setAudioDevice(std::string_view audioDeviceName) override;
-
     [[nodiscard]] int getAudioVolume() const noexcept override;
-
     void setAudioVolume(int audioVolume) override;
 
     [[nodiscard]] bool isFullscreen() const noexcept override;
-
     void setFullscreen(bool isFullscreen) override;
+
+    bool isRunning() const noexcept override;
+    void exit() override;
 
 private:
     static void initSDL() {
         if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_AUDIO | SDL_INIT_GAMEPAD |
                      SDL_INIT_TIMER) != 0)
-            throw std::runtime_error{"Error : failed call SDL_Init: "s + SDL_GetError()};
+            throw std::runtime_error{ "Error : failed call SDL_Init: "s + SDL_GetError() };
     }
 
-    static SDL_Window *
+    static SDL_Window*
     createWindow(std::string_view name, int width, int height, SDL_WindowFlags flags) {
-        if (auto window{SDL_CreateWindow(name.data(), width, height, flags)}; window != nullptr)
+        if (auto window{ SDL_CreateWindow(name.data(), width, height, flags) }; window != nullptr)
             return window;
 
         SDL_Quit();
-        throw std::runtime_error{"Error : failed call SDL_CreateWindow: "s + SDL_GetError()};
+        throw std::runtime_error{ "Error : failed call SDL_CreateWindow: "s + SDL_GetError() };
     }
 
-    [[maybe_unused]] static SDL_Renderer *createRenderer(SDL_Window *window) {
-        if (auto renderer{SDL_CreateRenderer(window, "opengl", SDL_RENDERER_ACCELERATED)};
-                renderer != nullptr)
+    [[maybe_unused]] static SDL_Renderer* createRenderer(SDL_Window* window) {
+        if (auto renderer{ SDL_CreateRenderer(window, "opengl", SDL_RENDERER_ACCELERATED) };
+            renderer != nullptr)
             return renderer;
 
         SDL_DestroyWindow(window);
         SDL_Quit();
-        throw std::runtime_error{"Error : failed call SDL_CreateRenderer: "s + SDL_GetError()};
+        throw std::runtime_error{ "Error : failed call SDL_CreateRenderer: "s + SDL_GetError() };
     }
 
     void createGLContext() {
-        const std::string_view platform{SDL_GetPlatform()};
+        const std::string_view platform{ SDL_GetPlatform() };
 
-        int gl_major_ver{3};
-        int gl_minor_ver{0};
-        int gl_context_profile{SDL_GL_CONTEXT_PROFILE_ES};
-        std::string glslVersion{"#version 300 es"};
+        int gl_major_ver{ 3 };
+        int gl_minor_ver{ 0 };
+        int gl_context_profile{ SDL_GL_CONTEXT_PROFILE_ES };
+        std::string glslVersion{ "#version 300 es" };
 
         if (platform == "macOS") {
             gl_major_ver = 4;
@@ -701,18 +700,18 @@ private:
 
         m_glContext = SDL_GL_CreateContext(m_window);
         if (m_glContext == nullptr)
-            throw std::runtime_error{"Error : createGLContext : bad create gl context"s};
+            throw std::runtime_error{ "Error : createGLContext : bad create gl context"s };
 
-        auto load_gl_pointer = [](const char *functionName) {
-            auto functionPointer{SDL_GL_GetProcAddress(functionName)};
-            return reinterpret_cast<void *>(functionPointer);
+        auto load_gl_pointer = [](const char* functionName) {
+            auto functionPointer{ SDL_GL_GetProcAddress(functionName) };
+            return reinterpret_cast<void*>(functionPointer);
         };
 
         if (gladLoadGLES2Loader(load_gl_pointer) == 0)
-            throw std::runtime_error{"Error : createGLContext : bad gladLoad"s};
+            throw std::runtime_error{ "Error : createGLContext : bad gladLoad"s };
     }
 
-    static void audioCallback(void *engine_ptr, std::uint8_t *stream, int streamSize);
+    static void audioCallback(void* engine_ptr, std::uint8_t* stream, int streamSize);
 };
 
 std::string EngineImpl::initialize(std::string_view config) {
@@ -730,28 +729,28 @@ std::string EngineImpl::initialize(std::string_view config) {
 
     auto jsonValue(json::parse(config));
 
-    auto windowName{jsonValue.as_object().contains("window_name")
-                    ? jsonValue.as_object().at("window_name").as_string()
-                    : "SDL + OPENGL"sv};
+    auto windowName{ jsonValue.as_object().contains("window_name")
+                         ? jsonValue.as_object().at("window_name").as_string()
+                         : "SDL + OPENGL"sv };
 
-    auto width{jsonValue.as_object().contains("window_width")
-               ? jsonValue.as_object().at("window_width").as_int64()
-               : 800};
+    auto width{ jsonValue.as_object().contains("window_width")
+                    ? jsonValue.as_object().at("window_width").as_int64()
+                    : 800 };
 
-    auto height{jsonValue.as_object().contains("window_height")
-                ? jsonValue.as_object().at("window_height").as_int64()
-                : 600};
+    auto height{ jsonValue.as_object().contains("window_height")
+                     ? jsonValue.as_object().at("window_height").as_int64()
+                     : 600 };
 
-    auto isWindowResizable{jsonValue.as_object().contains("is_window_resizable") &&
-                           jsonValue.as_object().at("is_window_resizable").as_bool()};
+    auto isWindowResizable{ jsonValue.as_object().contains("is_window_resizable") &&
+                            jsonValue.as_object().at("is_window_resizable").as_bool() };
 
-    auto minWidth{jsonValue.as_object().contains("window_min_width")
-                  ? jsonValue.as_object().at("window_min_width").as_int64()
-                  : 640};
+    auto minWidth{ jsonValue.as_object().contains("window_min_width")
+                       ? jsonValue.as_object().at("window_min_width").as_int64()
+                       : 640 };
 
-    auto minHeight{jsonValue.as_object().contains("window_min_height")
-                   ? jsonValue.as_object().at("window_min_height").as_int64()
-                   : 480};
+    auto minHeight{ jsonValue.as_object().contains("window_min_height")
+                        ? jsonValue.as_object().at("window_min_height").as_int64()
+                        : 480 };
 
     int flags{};
     flags |= SDL_WINDOW_OPENGL | SDL_WINDOW_HIDDEN;
@@ -796,7 +795,7 @@ std::string EngineImpl::initialize(std::string_view config) {
     m_audioSpec.userdata = this;
 
     std::string defaultAudioDeviceName{};
-    const int numAudioDevices{SDL_GetNumAudioDevices(SDL_FALSE)};
+    const int numAudioDevices{ SDL_GetNumAudioDevices(SDL_FALSE) };
     if (numAudioDevices > 0)
         defaultAudioDeviceName = SDL_GetAudioDeviceName(numAudioDevices - 1, 0);
 
@@ -809,8 +808,8 @@ std::string EngineImpl::initialize(std::string_view config) {
                                         SDL_AUDIO_ALLOW_ANY_CHANGE);
 
     if (m_audioDevice == 0)
-        throw std::runtime_error{"Error : EngineImpl::initialize : failed open audio device: "s +
-                                 SDL_GetError()};
+        throw std::runtime_error{ "Error : EngineImpl::initialize : failed open audio device: "s +
+                                  SDL_GetError() };
 
     std::cout << "audio device selected: "sv << defaultAudioDeviceName << '\n'
               << "freq: "sv << m_audioSpec.freq << '\n'
@@ -827,8 +826,8 @@ std::string EngineImpl::initialize(std::string_view config) {
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
-    (void) io;
+    ImGuiIO& io = ImGui::GetIO();
+    ( void )io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
 
@@ -838,7 +837,7 @@ std::string EngineImpl::initialize(std::string_view config) {
     // Setup Platform/Renderer backends
     ImGui_ImplSDL3_InitForOpenGL(m_window, m_glContext);
 #ifdef __APPLE__
-    const char *glsl_version = "#version 150";
+    const char* glsl_version = "#version 150";
 #else
     const char* glsl_version = "#version 300 es";
 #endif
@@ -865,46 +864,46 @@ void EngineImpl::uninitialize() {
     SDL_Quit();
 }
 
-bool EngineImpl::readInput(Event &event) {
+bool EngineImpl::readInput(Event& event) {
     SDL_Event sdlEvent;
     if (SDL_PollEvent(&sdlEvent)) {
         ImGui_ImplSDL3_ProcessEvent(&sdlEvent);
 
         switch (sdlEvent.type) {
-            case SDL_EVENT_QUIT:
-                event.type = Event::Type::turn_off;
+        case SDL_EVENT_QUIT:
+            event.type = Event::Type::turn_off;
+            return true;
+
+        case SDL_EVENT_KEY_DOWN:
+        case SDL_EVENT_KEY_UP:
+            if (auto e{ checkKeyboardInput(sdlEvent) }) {
+                event = *e;
                 return true;
+            }
+            break;
 
-            case SDL_EVENT_KEY_DOWN:
-            case SDL_EVENT_KEY_UP:
-                if (auto e{checkKeyboardInput(sdlEvent)}) {
-                    event = *e;
-                    return true;
-                }
-                break;
-
-            case SDL_EVENT_MOUSE_MOTION:
-            case SDL_EVENT_MOUSE_BUTTON_DOWN:
-            case SDL_EVENT_MOUSE_BUTTON_UP:
-            case SDL_EVENT_MOUSE_WHEEL:
-                if (auto e{checkMouseInput(sdlEvent)}) {
-                    event = *e;
-                    return true;
-                }
-                break;
-
-            case SDL_EVENT_WINDOW_RESIZED:
-                event.type = Event::Type::window_resized;
+        case SDL_EVENT_MOUSE_MOTION:
+        case SDL_EVENT_MOUSE_BUTTON_DOWN:
+        case SDL_EVENT_MOUSE_BUTTON_UP:
+        case SDL_EVENT_MOUSE_WHEEL:
+            if (auto e{ checkMouseInput(sdlEvent) }) {
+                event = *e;
                 return true;
+            }
+            break;
 
-            case SDL_EVENT_FINGER_DOWN:
-            case SDL_EVENT_FINGER_UP:
-            case SDL_EVENT_FINGER_MOTION:
-                if (auto e{checkTouchInput(sdlEvent)}) {
-                    event = *e;
-                    return true;
-                }
-                break;
+        case SDL_EVENT_WINDOW_RESIZED:
+            event.type = Event::Type::window_resized;
+            return true;
+
+        case SDL_EVENT_FINGER_DOWN:
+        case SDL_EVENT_FINGER_UP:
+        case SDL_EVENT_FINGER_MOTION:
+            if (auto e{ checkTouchInput(sdlEvent) }) {
+                event = *e;
+                return true;
+            }
+            break;
         }
     }
 
@@ -932,12 +931,12 @@ void EngineImpl::swapBuffers() {
 void EngineImpl::recompileShaders() {
 #ifndef __ANDROID__
     m_shaderProgram.recompileShaders(
-            HotReloadProvider::getInstance().getPath("vertex_shader_without_view"),
-            HotReloadProvider::getInstance().getPath("fragment_shader"));
+        HotReloadProvider::getInstance().getPath("vertex_shader_without_view"),
+        HotReloadProvider::getInstance().getPath("fragment_shader"));
 
     m_shaderProgramWithView.recompileShaders(
-            HotReloadProvider::getInstance().getPath("vertex_shader_with_view"),
-            HotReloadProvider::getInstance().getPath("fragment_shader"));
+        HotReloadProvider::getInstance().getPath("vertex_shader_with_view"),
+        HotReloadProvider::getInstance().getPath("fragment_shader"));
 #else
     m_shaderProgram.recompileShaders("data/shaders/vertex_shader_without_view.vert",
                                      "data/shaders/fragment_shader.frag");
@@ -948,9 +947,9 @@ void EngineImpl::recompileShaders() {
     m_program.get().use();
 }
 
-void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
-                        const IndexBuffer<std::uint16_t> &indexBuffer,
-                        const Texture &texture) {
+void EngineImpl::render(const VertexBuffer<Vertex2>& vertexBuffer,
+                        const IndexBuffer<std::uint16_t>& indexBuffer,
+                        const Texture& texture) {
     m_program.get().use();
     m_program.get().setUniform("texSampler", texture);
 
@@ -975,7 +974,7 @@ void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
                           GL_FLOAT,
                           GL_FALSE,
                           sizeof(Vertex2),
-                          reinterpret_cast<const GLvoid *>(offsetof(Vertex2, texX)));
+                          reinterpret_cast<const GLvoid*>(offsetof(Vertex2, texX)));
     openGLCheck();
 
     glVertexAttribPointer(2,
@@ -983,11 +982,11 @@ void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
                           GL_UNSIGNED_BYTE,
                           GL_FALSE,
                           sizeof(Vertex2),
-                          reinterpret_cast<const GLvoid *>(offsetof(Vertex2, rgba)));
+                          reinterpret_cast<const GLvoid*>(offsetof(Vertex2, rgba)));
     openGLCheck();
 
     glDrawElements(
-            GL_TRIANGLES, static_cast<GLsizei>(indexBuffer.size()), GL_UNSIGNED_SHORT, nullptr);
+        GL_TRIANGLES, static_cast<GLsizei>(indexBuffer.size()), GL_UNSIGNED_SHORT, nullptr);
     openGLCheck();
 
     glDisableVertexAttribArray(0);
@@ -995,9 +994,9 @@ void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
     glDisableVertexAttribArray(2);
 }
 
-void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
-                        const IndexBuffer<std::uint32_t> &indexBuffer,
-                        const Texture &texture) {
+void EngineImpl::render(const VertexBuffer<Vertex2>& vertexBuffer,
+                        const IndexBuffer<std::uint32_t>& indexBuffer,
+                        const Texture& texture) {
     m_program.get().use();
     m_program.get().setUniform("texSampler", texture);
 
@@ -1022,7 +1021,7 @@ void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
                           GL_FLOAT,
                           GL_FALSE,
                           sizeof(Vertex2),
-                          reinterpret_cast<const GLvoid *>(offsetof(Vertex2, texX)));
+                          reinterpret_cast<const GLvoid*>(offsetof(Vertex2, texX)));
     openGLCheck();
 
     glVertexAttribPointer(2,
@@ -1030,11 +1029,11 @@ void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
                           GL_UNSIGNED_BYTE,
                           GL_FALSE,
                           sizeof(Vertex2),
-                          reinterpret_cast<const GLvoid *>(offsetof(Vertex2, rgba)));
+                          reinterpret_cast<const GLvoid*>(offsetof(Vertex2, rgba)));
     openGLCheck();
 
     glDrawElements(
-            GL_TRIANGLES, static_cast<GLsizei>(indexBuffer.size()), GL_UNSIGNED_INT, nullptr);
+        GL_TRIANGLES, static_cast<GLsizei>(indexBuffer.size()), GL_UNSIGNED_INT, nullptr);
     openGLCheck();
 
     glDisableVertexAttribArray(0);
@@ -1042,21 +1041,21 @@ void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
     glDisableVertexAttribArray(2);
 }
 
-void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
-                        const IndexBuffer<std::uint32_t> &indexBuffer,
-                        const Texture &texture,
-                        const glm::mat3 &matrix) {
+void EngineImpl::render(const VertexBuffer<Vertex2>& vertexBuffer,
+                        const IndexBuffer<std::uint32_t>& indexBuffer,
+                        const Texture& texture,
+                        const glm::mat3& matrix) {
     m_program.get().use();
     m_program.get().setUniform("matrix", matrix);
     render(vertexBuffer, indexBuffer, texture);
 }
 
-void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
-                        const IndexBuffer<std::uint32_t> &indexBuffer,
-                        const Texture &texture,
-                        const glm::mat3 &matrix,
-                        const View &view) {
-    ShaderProgram &lastProgram{m_program.get()};
+void EngineImpl::render(const VertexBuffer<Vertex2>& vertexBuffer,
+                        const IndexBuffer<std::uint32_t>& indexBuffer,
+                        const Texture& texture,
+                        const glm::mat3& matrix,
+                        const View& view) {
+    ShaderProgram& lastProgram{ m_program.get() };
     m_program = m_shaderProgramWithView;
     m_program.get().use();
     m_program.get().setUniform("viewMatrix", view.getViewMatrix());
@@ -1064,18 +1063,18 @@ void EngineImpl::render(const VertexBuffer<Vertex2> &vertexBuffer,
     m_program = lastProgram;
 }
 
-void EngineImpl::render(const Sprite &sprite) {
+void EngineImpl::render(const Sprite& sprite) {
     m_program.get().use();
     m_program.get().setUniform("matrix", sprite.getResultMatrix());
 
-    VertexBuffer vertexBuffer{sprite.getVertices()};
-    IndexBuffer indexBuffer{sprite.getIndices()};
+    VertexBuffer vertexBuffer{ sprite.getVertices() };
+    IndexBuffer indexBuffer{ sprite.getIndices() };
 
     render(vertexBuffer, indexBuffer, sprite.getTexture());
 }
 
-void EngineImpl::render(const Sprite &sprite, const View &view) {
-    ShaderProgram &lastProgram{m_program.get()};
+void EngineImpl::render(const Sprite& sprite, const View& view) {
+    ShaderProgram& lastProgram{ m_program.get() };
     m_program = m_shaderProgramWithView;
     m_program.get().use();
     m_program.get().setUniform("viewMatrix", view.getViewMatrix());
@@ -1083,22 +1082,23 @@ void EngineImpl::render(const Sprite &sprite, const View &view) {
     m_program = lastProgram;
 }
 
-void EngineImpl::audioCallback(void *engine_ptr, std::uint8_t *stream, int streamSize) {
-    std::lock_guard lock{g_audioMutex};
-    auto engine{static_cast<EngineImpl *>(engine_ptr)};
+void EngineImpl::audioCallback(void* engine_ptr, std::uint8_t* stream, int streamSize) {
+    std::lock_guard lock{ g_audioMutex };
+    auto engine{ static_cast<EngineImpl*>(engine_ptr) };
 
     std::fill_n(stream, streamSize, '\0');
 
-    for (Audio &sound: engine->m_sounds) {
+    for (Audio& sound : engine->m_sounds) {
         if (sound.m_isPlaying) {
-            std::uint32_t rest{sound.m_size - sound.m_currentPos};
-            std::uint8_t *current_buf{sound.m_start + sound.m_currentPos};
+            std::uint32_t rest{ sound.m_size - sound.m_currentPos };
+            std::uint8_t* current_buf{ sound.m_start + sound.m_currentPos };
 
             if (rest <= static_cast<std::uint32_t>(streamSize)) {
                 SDL_MixAudioFormat(
-                        stream, current_buf, engine->m_audioSpec.format, rest, engine->m_audioVolume);
+                    stream, current_buf, engine->m_audioSpec.format, rest, engine->m_audioVolume);
                 sound.m_currentPos += rest;
-            } else {
+            }
+            else {
                 SDL_MixAudioFormat(stream,
                                    current_buf,
                                    engine->m_audioSpec.format,
@@ -1119,24 +1119,24 @@ void EngineImpl::audioCallback(void *engine_ptr, std::uint8_t *stream, int strea
 
 std::vector<std::string> EngineImpl::getAudioDeviceNames() const noexcept {
     std::vector<std::string> names{};
-    const int count{SDL_GetNumAudioDevices(SDL_FALSE)};
+    const int count{ SDL_GetNumAudioDevices(SDL_FALSE) };
     for (int i{}; i < count; ++i)
         names.emplace_back(SDL_GetAudioDeviceName(i, SDL_FALSE));
 
     return names;
 }
 
-const std::string &EngineImpl::getCurrentAudioDeviceName() const noexcept {
+const std::string& EngineImpl::getCurrentAudioDeviceName() const noexcept {
     return m_currentAudioDeviceName;
 }
 
 void EngineImpl::setAudioDevice(std::string_view audioDeviceName) {
     SDL_CloseAudioDevice(m_audioDevice);
     m_audioDevice =
-            SDL_OpenAudioDevice(audioDeviceName.data(), SDL_FALSE, &m_audioSpec, &m_audioSpec, 0);
+        SDL_OpenAudioDevice(audioDeviceName.data(), SDL_FALSE, &m_audioSpec, &m_audioSpec, 0);
 
     if (m_audioDevice == 0)
-        throw std::runtime_error{"Error : setAudioDevice : can't open audio device"s};
+        throw std::runtime_error{ "Error : setAudioDevice : can't open audio device"s };
     m_currentAudioDeviceName = audioDeviceName;
 
     std::cout << "audio device selected: "sv << m_currentAudioDeviceName << '\n'
@@ -1146,22 +1146,22 @@ void EngineImpl::setAudioDevice(std::string_view audioDeviceName) {
               << "samples: "sv << m_audioSpec.samples << '\n'
               << std::flush;
 
-    std::lock_guard lock{g_audioMutex};
-    for (Audio &sound: m_sounds) {
-        std::uint8_t *newStart{};
+    std::lock_guard lock{ g_audioMutex };
+    for (Audio& sound : m_sounds) {
+        std::uint8_t* newStart{};
         int newSize{};
-        int convertStatus{SDL_ConvertAudioSamples(sound.m_format,
-                                                  sound.m_channels,
-                                                  sound.m_freq,
-                                                  sound.m_start,
-                                                  sound.m_size,
-                                                  m_audioSpec.format,
-                                                  m_audioSpec.channels,
-                                                  m_audioSpec.freq,
-                                                  &newStart,
-                                                  &newSize)};
+        int convertStatus{ SDL_ConvertAudioSamples(sound.m_format,
+                                                   sound.m_channels,
+                                                   sound.m_freq,
+                                                   sound.m_start,
+                                                   sound.m_size,
+                                                   m_audioSpec.format,
+                                                   m_audioSpec.channels,
+                                                   m_audioSpec.freq,
+                                                   &newStart,
+                                                   &newSize) };
         if (convertStatus != 0)
-            throw std::runtime_error{"Error : setAudioDevice : failed convert audio"s};
+            throw std::runtime_error{ "Error : setAudioDevice : failed convert audio"s };
 
         SDL_free(sound.m_start);
         sound.m_start = newStart;
@@ -1178,7 +1178,7 @@ int EngineImpl::getAudioVolume() const noexcept { return m_audioVolume; }
 
 void EngineImpl::setAudioVolume(int audioVolume) {
     if (audioVolume < 0 || audioVolume > 128)
-        throw std::runtime_error{"Error : setAudioVolume : volume should be in range [0, 128] "s};
+        throw std::runtime_error{ "Error : setAudioVolume : volume should be in range [0, 128] "s };
     m_audioVolume = audioVolume;
 }
 
@@ -1190,61 +1190,65 @@ void EngineImpl::setFullscreen(bool isFullscreen) {
     SDL_SetWindowFullscreen(m_window, isFullscreen ? SDL_TRUE : SDL_FALSE);
 }
 
-static bool g_alreadyExist{false};
+bool EngineImpl::isRunning() const noexcept { return !m_isEnd; }
+
+void EngineImpl::exit() { m_isEnd = true; }
+
+static bool g_alreadyExist{ false };
 static EnginePtr g_engine{};
 
 void createEngine() {
-    if (g_alreadyExist) throw std::runtime_error{"Error : engine already exist"s};
+    if (g_alreadyExist) throw std::runtime_error{ "Error : engine already exist"s };
     g_alreadyExist = true;
-    g_engine = {new EngineImpl{}, destroyEngine};
+    g_engine = { new EngineImpl{}, destroyEngine };
 }
 
-void destroyEngine(IEngine *e) {
-    if (!g_alreadyExist) throw std::runtime_error{"Error : engine not exist"s};
-    if (e == nullptr) throw std::runtime_error{"Error : nullptr"s};
+void destroyEngine(IEngine* e) {
+    if (!g_alreadyExist) throw std::runtime_error{ "Error : engine not exist"s };
+    if (e == nullptr) throw std::runtime_error{ "Error : nullptr"s };
     delete e;
     g_alreadyExist = false;
 }
 
-const EnginePtr &getEngineInstance() {
-    if (!g_alreadyExist) throw std::runtime_error{"Error : engine not exist"s};
+const EnginePtr& getEngineInstance() {
+    if (!g_alreadyExist) throw std::runtime_error{ "Error : engine not exist"s };
     return g_engine;
 }
 
-Audio::Audio(const fs::path &path) {
+Audio::Audio(const fs::path& path) {
 #ifndef __WIN32__
-    SDL_RWops *file{SDL_RWFromFile(path.c_str(), "rb")};
+    SDL_RWops* file{ SDL_RWFromFile(path.c_str(), "rb") };
 #else
     SDL_RWops* file{ SDL_RWFromFile(path.string().c_str(), "rb") };
 #endif
-    if (file == nullptr) throw std::runtime_error{"Error : Audio : failed read file"s};
+    if (file == nullptr) throw std::runtime_error{ "Error : Audio : failed read file"s };
 
     SDL_AudioSpec fileAudioSpec;
     if (SDL_LoadWAV_RW(file, SDL_TRUE, &fileAudioSpec, &m_start, &m_size) == nullptr)
-        throw std::runtime_error{"Error : Audio : failed load wav"s};
+        throw std::runtime_error{ "Error : Audio : failed load wav"s };
     m_format = fileAudioSpec.format;
     m_channels = fileAudioSpec.channels;
     m_freq = fileAudioSpec.freq;
 
-    auto &engine{dynamic_cast<EngineImpl &>(*getEngineInstance().get())};
-    auto &requiredAudioSpec{engine.m_audioSpec};
+    auto& engine{ dynamic_cast<EngineImpl&>(*getEngineInstance().get()) };
+    auto& requiredAudioSpec{ engine.m_audioSpec };
 
     if (engine.m_audioSpec.freq != fileAudioSpec.freq ||
         engine.m_audioSpec.format != fileAudioSpec.format ||
         engine.m_audioSpec.channels != fileAudioSpec.channels) {
-        std::uint8_t *newStart{};
+        std::uint8_t* newStart{};
         int newSize{};
-        int convertStatus{SDL_ConvertAudioSamples(fileAudioSpec.format,
-                                                  fileAudioSpec.channels,
-                                                  fileAudioSpec.freq,
-                                                  m_start,
-                                                  m_size,
-                                                  requiredAudioSpec.format,
-                                                  requiredAudioSpec.channels,
-                                                  requiredAudioSpec.freq,
-                                                  &newStart,
-                                                  &newSize)};
-        if (convertStatus != 0) throw std::runtime_error{"Error : Audio : failed convert audio"s};
+        int convertStatus{ SDL_ConvertAudioSamples(fileAudioSpec.format,
+                                                   fileAudioSpec.channels,
+                                                   fileAudioSpec.freq,
+                                                   m_start,
+                                                   m_size,
+                                                   requiredAudioSpec.format,
+                                                   requiredAudioSpec.channels,
+                                                   requiredAudioSpec.freq,
+                                                   &newStart,
+                                                   &newSize) };
+        if (convertStatus != 0) throw std::runtime_error{ "Error : Audio : failed convert audio"s };
         SDL_free(m_start);
         m_start = newStart;
         m_size = newSize;
@@ -1252,7 +1256,7 @@ Audio::Audio(const fs::path &path) {
         m_channels = requiredAudioSpec.channels;
         m_freq = requiredAudioSpec.freq;
     }
-    std::lock_guard lock{g_audioMutex};
+    std::lock_guard lock{ g_audioMutex };
     engine.m_sounds.emplace_back(*this);
 }
 
@@ -1261,7 +1265,7 @@ Audio::~Audio() {
 }
 
 void Audio::play(bool isLooped) {
-    std::lock_guard lock{g_audioMutex};
+    std::lock_guard lock{ g_audioMutex };
     m_currentPos = 0;
     m_isPlaying = true;
     m_isLooped = isLooped;
@@ -1269,12 +1273,12 @@ void Audio::play(bool isLooped) {
 
 #ifndef __ANDROID__
 
-static std::unique_ptr<IGame, std::function<void(IGame *game)>>
-reloadGame(std::unique_ptr<IGame, std::function<void(IGame *game)>> oldGame,
+static std::unique_ptr<IGame, std::function<void(IGame* game)>>
+reloadGame(std::unique_ptr<IGame, std::function<void(IGame* game)>> oldGame,
            std::string_view libraryName,
            std::string_view tempLibraryName,
-           IEngine &engine,
-           void *&oldHandle) {
+           IEngine& engine,
+           void*& oldHandle) {
     if (oldGame) {
         oldGame.reset(nullptr);
         SDL_UnloadObject(oldHandle);
@@ -1283,7 +1287,7 @@ reloadGame(std::unique_ptr<IGame, std::function<void(IGame *game)>> oldGame,
     fs::remove(tempLibraryName);
     fs::copy(libraryName, tempLibraryName);
 
-    auto gameHandle{SDL_LoadObject(tempLibraryName.data())};
+    auto gameHandle{ SDL_LoadObject(tempLibraryName.data()) };
     if (gameHandle == nullptr) {
         std::cerr << "Failed SDL_LoadObject\n"sv;
         return nullptr;
@@ -1291,53 +1295,55 @@ reloadGame(std::unique_ptr<IGame, std::function<void(IGame *game)>> oldGame,
 
     oldHandle = gameHandle;
 
-    auto createGameFuncPtr{SDL_LoadFunction(gameHandle, "createGame")};
+    auto createGameFuncPtr{ SDL_LoadFunction(gameHandle, "createGame") };
     if (createGameFuncPtr == nullptr) {
         std::cerr << "Failed : SDL_LoadFunction : createGame\n"sv;
         return nullptr;
     }
 
     using CreateGame = decltype(&createGame);
-    auto createGameLinked{reinterpret_cast<CreateGame>(createGameFuncPtr)};
+    auto createGameLinked{ reinterpret_cast<CreateGame>(createGameFuncPtr) };
 
-    auto destroyGameFuncPtr{SDL_LoadFunction(gameHandle, "destroyGame")};
+    auto destroyGameFuncPtr{ SDL_LoadFunction(gameHandle, "destroyGame") };
     if (destroyGameFuncPtr == nullptr) {
         std::cerr << "Failed : SDL_LoadFunction : destroyGame\n"sv;
         return nullptr;
     }
 
     using DestroyGame = decltype(&destroyGame);
-    auto destroyGameLinked{reinterpret_cast<DestroyGame>(destroyGameFuncPtr)};
+    auto destroyGameLinked{ reinterpret_cast<DestroyGame>(destroyGameFuncPtr) };
 
-    return {createGameLinked(&engine), [destroyGameLinked](IGame *game) {
-        destroyGameLinked(game);
-    }};
+    return { createGameLinked(&engine), [destroyGameLinked](IGame* game) {
+                destroyGameLinked(game);
+            } };
 }
 
-struct Args {
+struct Args
+{
     std::string configFilePath{};
 };
 
-std::optional<Args> parseCommandLine(int argc, const char *argv[]) {
+std::optional<Args> parseCommandLine(int argc, const char* argv[]) {
     namespace po = boost::program_options;
 
-    po::options_description description{"Allowed options"s};
+    po::options_description description{ "Allowed options"s };
     Args args{};
     description.add_options()("help,h", "produce help message") //
-            ("config-file,c",
-             po::value(&args.configFilePath)->value_name("file"),
-             "set config file path");
+        ("config-file,c",
+         po::value(&args.configFilePath)->value_name("file"),
+         "set config file path");
 
     po::variables_map vm{};
     po::store(po::parse_command_line(argc, argv, description), vm);
     po::notify(vm);
 
-    //if (!vm.contains("config-file")) throw std::runtime_error{ "Config file not been specified"s };
+    // if (!vm.contains("config-file")) throw std::runtime_error{ "Config file not been specified"s
+    // };
     if (!vm.contains("config-file")) args.configFilePath = "data/config.json";
     return args;
 }
 
-Vertex blendVertex(const Vertex &v1, const Vertex &v2, const float a) {
+Vertex blendVertex(const Vertex& v1, const Vertex& v2, const float a) {
     Vertex r{};
     r.x = (1.0f - a) * v1.x + a * v2.x;
     r.y = (1.0f - a) * v1.y + a * v2.y;
@@ -1348,7 +1354,7 @@ Vertex blendVertex(const Vertex &v1, const Vertex &v2, const float a) {
     return r;
 }
 
-Triangle blendTriangle(const Triangle &tl, const Triangle &tr, const float a) {
+Triangle blendTriangle(const Triangle& tl, const Triangle& tr, const float a) {
     Triangle triangle;
     triangle.vertices[0] = blendVertex(tl.vertices[0], tr.vertices[0], a);
     triangle.vertices[1] = blendVertex(tl.vertices[1], tr.vertices[1], a);
@@ -1357,11 +1363,11 @@ Triangle blendTriangle(const Triangle &tl, const Triangle &tr, const float a) {
     return triangle;
 }
 
-Triangle getTransformedTriangle(const Triangle &t, const glm::mat3 &matrix) {
-    Triangle result{t};
+Triangle getTransformedTriangle(const Triangle& t, const glm::mat3& matrix) {
+    Triangle result{ t };
 
-    std::ranges::for_each(result.vertices, [&](Vertex &v) {
-        glm::vec3 posSource{v.x, v.y, 1.f};
+    std::ranges::for_each(result.vertices, [&](Vertex& v) {
+        glm::vec3 posSource{ v.x, v.y, 1.f };
         glm::vec3 posResult = matrix * posSource;
 
         v.x = posResult[0];
@@ -1371,20 +1377,20 @@ Triangle getTransformedTriangle(const Triangle &t, const glm::mat3 &matrix) {
     return result;
 }
 
-int main(int argc, const char *argv[]) {
+int main(int argc, const char* argv[]) {
     try {
-        if (auto args{parseCommandLine(argc, argv)}) {
+        if (auto args{ parseCommandLine(argc, argv) }) {
             HotReloadProvider::setPath(args->configFilePath);
 
             createEngine();
-            auto &engine{getEngineInstance()};
-            auto answer{engine->initialize("{}")};
+            auto& engine{ getEngineInstance() };
+            auto answer{ engine->initialize("{}") };
             if (!answer.empty()) { return EXIT_FAILURE; }
             std::cout << "start app"sv << std::endl;
 
-            std::string_view tempLibraryName{"./temp.dll"};
-            void *gameLibraryHandle{};
-            std::unique_ptr<IGame, std::function<void(IGame *game)>> game;
+            std::string_view tempLibraryName{ "./temp.dll" };
+            void* gameLibraryHandle{};
+            std::unique_ptr<IGame, std::function<void(IGame * game)>> game;
 
             HotReloadProvider::getInstance().addToCheck("game", [&]() {
                 std::cout << "changing game\n"sv;
@@ -1414,16 +1420,15 @@ int main(int argc, const char *argv[]) {
 
             HotReloadProvider::getInstance().check();
 
-            bool isEnd{};
-            while (!isEnd) {
-                std::uint64_t frameStart{SDL_GetTicks()};
+            while (engine->isRunning()) {
+                std::uint64_t frameStart{ SDL_GetTicks() };
                 HotReloadProvider::getInstance().check();
                 Event event{};
                 while (engine->readInput(event)) {
                     std::cout << event << '\n';
                     if (event.type == Event::Type::turn_off) {
                         std::cout << "exiting"sv << std::endl;
-                        isEnd = true;
+                        engine->exit();
                         break;
                     }
 
@@ -1441,7 +1446,7 @@ int main(int argc, const char *argv[]) {
 
                 if (!engine->getVSync() && engine->getFramerate() < 300) {
                     int frameDelay = 1000 / engine->getFramerate();
-                    std::uint64_t frameTime{SDL_GetTicks() - frameStart};
+                    std::uint64_t frameTime{ SDL_GetTicks() - frameStart };
                     if (frameTime < frameDelay) SDL_Delay(frameDelay - frameTime);
                 }
             }
@@ -1450,7 +1455,7 @@ int main(int argc, const char *argv[]) {
             return EXIT_SUCCESS;
         }
     }
-    catch (const std::exception &e) {
+    catch (const std::exception& e) {
         std::cerr << e.what() << '\n';
     }
     catch (...) {

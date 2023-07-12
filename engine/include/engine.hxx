@@ -254,6 +254,8 @@ public:
     virtual void setAudioVolume(int audioVolume) = 0;
     [[nodiscard]] virtual bool isFullscreen() const noexcept = 0;
     virtual void setFullscreen(bool isFullscreen) = 0;
+    [[nodiscard]] virtual bool isRunning() const noexcept = 0;
+    virtual void exit() = 0;
 };
 
 using EnginePtr = std::unique_ptr<IEngine, std::function<void(IEngine*)>>;
