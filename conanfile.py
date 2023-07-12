@@ -15,4 +15,5 @@ class CompressorRecipe(ConanFile):
             self.requires("libpng/1.6.39")
             
     def layout(self):
-        cmake_layout(self)
+        if self.settings.os == "Android":
+            cmake_layout(self)
