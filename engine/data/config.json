@@ -1,0 +1,6 @@
+{
+  "game": "../libgame.dylib",
+  "vertex_shader_with_view": "shaders/vertex_shader_with_view.vert",
+  "vertex_shader_without_view": "shaders/vertex_shader_without_view.vert",
+  "fragment_shader": "shaders/fragment_shader.frag"
+}
