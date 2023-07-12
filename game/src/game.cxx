@@ -21,8 +21,6 @@ private:
     inline static constexpr Size s_originalWindowSize{ 800, 600 };
     inline static constexpr int s_deltaForTouches{ 50 };
 
-    int m_framerate{ 150 };
-
     std::unique_ptr<Player> player{};
     std::unique_ptr<Ship> ship{};
     std::unique_ptr<Map> map{};
@@ -38,9 +36,6 @@ private:
     bool m_viewOnTreasure{};
 
     View m_view{};
-
-    bool m_isDebugMenuOn{ false };
-    bool m_debugTankInfo{ false };
 
     Rectangle rectMap{};
     Rectangle rectGetOut{};
@@ -328,25 +323,6 @@ public:
 
             if (event.keyboard.key == Config::view_treasure_key && player->hasBottle()) {
                 m_viewOnTreasure = !m_viewOnTreasure;
-                break;
-            }
-
-            if (event.keyboard.key == Event::Keyboard::Key::l_control) {
-                m_isDebugMenuOn = !m_isDebugMenuOn;
-                break;
-            }
-
-            if (event.keyboard.key == Event::Keyboard::Key::l_shift) {
-                ship->config().moveMaxSpeed *= 2;
-                ship->config().moveAcceleration *= 2;
-                ship->config().moveDeceleration *= 2;
-                break;
-            }
-
-            if (event.keyboard.key == Event::Keyboard::Key::z) {
-                ship->config().moveMaxSpeed /= 2;
-                ship->config().moveAcceleration /= 2;
-                ship->config().moveDeceleration /= 2;
                 break;
             }
 
@@ -664,36 +640,6 @@ public:
                         300.f;
 
         m_view.setPosition(viewPos);
-
-        if (m_isDebugMenuOn) {
-            ImGui::Begin("Debug Menu");
-            ImGui::Text("FPS = %.1f ", ImGui::GetIO().Framerate);
-
-            ImGui::SliderInt("FPS", &m_framerate, 60, 300);
-            if (ImGui::Button("Apply FPS")) { getEngineInstance()->setFramerate(m_framerate); }
-
-            if (ImGui::Button((getEngineInstance()->getVSync() ? "Disable"s : "Enable"s + " VSync")
-                                  .c_str())) {
-                getEngineInstance()->setVSync(!getEngineInstance()->getVSync());
-            }
-
-            ImGui::Checkbox("Debug Ship info", &m_debugTankInfo);
-            if (m_debugTankInfo) {
-                ImGui::Text("pos x: %.1f\npos y: %.1f\nangle: %.1f\nspeed: %.1f\n"
-                            "width %.1f\nheight: %.1f\nwindowW %d\nwindowH %d",
-                            ship->getSprite().getPosition().x,
-                            ship->getSprite().getPosition().y,
-                            ship->getSprite().getRotate().getInDegrees(),
-                            ship->getMoveSpeed(),
-                            ship->getSprite().getSize().width,
-                            ship->getSprite().getSize().height,
-                            getEngineInstance()->getWindowSize().width,
-                            getEngineInstance()->getWindowSize().height);
-            }
-
-            ImGui::SliderFloat("camera height", &Config::camera_height, 0.1f, 10.f);
-            ImGui::End();
-        }
     }
 };
 
