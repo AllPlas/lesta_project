@@ -13,6 +13,9 @@ class CompressorRecipe(ConanFile):
         if self.settings.os != "Android":
             self.requires("boost/1.81.0")
             self.requires("libpng/1.6.39")
+
+        if self.settings.os == "Windows":
+            self.requires("zlib/1.2.13")
             
     def layout(self):
         if self.settings.os == "Android":
