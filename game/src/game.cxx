@@ -384,6 +384,7 @@ public:
             player->resizeUpdate();
             break;
 
+#ifdef __ANDROID__
         case Event::Type::touch_down:
             if (rectMap.contains(event.touch.pos)) {
                 if (player->hasBottle()) m_viewOnTreasure = !m_viewOnTreasure;
@@ -498,6 +499,7 @@ public:
                 player->stopMoveDown();
             }
             break;
+#endif
 
         default:
             break;
