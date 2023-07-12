@@ -1,4 +1,5 @@
 from conan import ConanFile
+from conan.tools.cmake import cmake_layout
 
 
 class CompressorRecipe(ConanFile):
@@ -12,3 +13,6 @@ class CompressorRecipe(ConanFile):
         if self.settings.os != "Android":
             self.requires("boost/1.81.0")
             self.requires("libpng/1.6.39")
+            
+    def layout(self):
+        cmake_layout(self)
