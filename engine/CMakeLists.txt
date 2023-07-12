@@ -67,12 +67,10 @@ else ()
     target_link_libraries(engine PUBLIC glm::glm imgui::imgui)
 endif ()
 
-if (WIN32)
-    add_custom_command(TARGET engine POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            $<TARGET_FILE:SDL3::SDL3-shared>
-            $<TARGET_FILE_DIR:engine>)
-endif ()
+add_custom_command(TARGET engine POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:SDL3::SDL3-shared>
+        $<TARGET_FILE_DIR:engine>)
 
 add_custom_command(TARGET engine POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
