@@ -60,8 +60,9 @@ Size Sprite::getSize() const noexcept {
     auto scale{ m_scaleMatrix };
     scale[0][0] *= m_aspectMatrix[0][0];
     scale[1][1] *= m_aspectMatrix[1][1];
-    auto transformed{ m_rotationMatrix * scale * glm::vec3(m_size.width, m_size.height, 1.0f) };
-    return { std::abs(transformed.x), std::abs(transformed.y) };
+    auto transformed{ scale * m_rotationMatrix * glm::vec3(m_size.width, m_size.height, 1.0f) };
+    //  return { std::abs(transformed.x), std::abs(transformed.y) };
+    return { m_size.width / m_aspectMatrix[0][0], m_size.height / m_aspectMatrix[1][1] };
 }
 
 void Sprite::setScale(Scale scale) {
