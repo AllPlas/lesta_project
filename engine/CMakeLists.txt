@@ -73,3 +73,8 @@ if (WIN32)
             $<TARGET_FILE:SDL3::SDL3-shared>
             $<TARGET_FILE_DIR:engine>)
 endif ()
+
+add_custom_command(TARGET engine POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${DataDir}
+        $<TARGET_FILE_DIR:engine>/data)

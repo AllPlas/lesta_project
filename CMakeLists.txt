@@ -4,13 +4,13 @@ if (EXISTS ${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
     set(CMAKE_TOOLCHAIN_FILE ${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
 endif ()
 
-project(engine_prepare_to_game)
+project(lesta_project)
 
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif ()
 
+set(DataDir ${CMAKE_CURRENT_SOURCE_DIR}/data)
+
 add_subdirectory(engine)
 add_subdirectory(game)
-
-file(COPY ${CMAKE_SOURCE_DIR}/data DESTINATION ${CMAKE_BINARY_DIR}/engine)
